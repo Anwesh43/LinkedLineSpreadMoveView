@@ -7,7 +7,6 @@ import android.content.Context
 import android.graphics.Paint
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.RectF
 
 val colors : Array<Int> = arrayOf(
     "#1A237E",
@@ -18,7 +17,7 @@ val colors : Array<Int> = arrayOf(
 ).map {
     Color.parseColor(it)
 }.toTypedArray()
-val parts : Int = 4
+val parts : Int = 3
 val strokeFactor : Float = 90f
 val sizeFactor : Float = 4.9f
 val delay : Long = 20
@@ -40,7 +39,7 @@ fun Canvas.drawLineSpreadMove(scale : Float, w : Float, h : Float, paint : Paint
     for (j in 0..2) {
         save()
         rotate(deg * (1f - j) * sc2)
-        translate(0f, -(h / 2) * sc3)
+        translate(0f, -(h / 2 + size) * sc3)
         drawLine(0f, 0f, 0f, -size, paint)
         restore()
     }
