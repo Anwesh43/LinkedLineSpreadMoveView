@@ -18,13 +18,12 @@ val colors : Array<Int> = arrayOf(
 ).map {
     Color.parseColor(it)
 }.toTypedArray()
-val parts : Int = 5
+val parts : Int = 4
 val strokeFactor : Float = 90f
 val sizeFactor : Float = 4.9f
 val delay : Long = 20
 val backColor : Int = Color.parseColor("#BDBDBD")
 val deg : Float = 30f
-val parts : Int = 4
 val scGap : Float = 0.02f / parts
 
 fun Int.inverse() : Float = 1f / this
@@ -88,6 +87,34 @@ class LineSpreadMoveView(ctx : Context) : View(ctx) {
             if (dir == 0f) {
                 dir = 1f - 2 * prevScale
                 cb()
+            }
+        }
+    }
+
+    data class Animator(var view : View, var animated : Boolean = false) {
+
+        fun animate(cb : () -> Unit) {
+            if (animated) {
+                cb()
+                try {
+                    Thread.sleep(delay)
+                    view.invalidate()
+                } catch(ex : Exception) {
+
+                }
+            }
+        }
+
+        fun start() {
+            if (!animated) {
+                animated = true
+                view.postInvalidate()
+            }
+        }
+
+        fun stop() {
+            if (animated) {
+                animated = false
             }
         }
     }
