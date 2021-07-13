@@ -205,4 +205,13 @@ class LineSpreadMoveView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : LineSpreadMoveView {
+            val view : LineSpreadMoveView = LineSpreadMoveView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
