@@ -182,4 +182,27 @@ class LineSpreadMoveView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : LineSpreadMoveView) {
+
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+        private val lsm : LineSpreadMover = LineSpreadMover(0)
+        private val animator : Animator = Animator(view)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            lsm.draw(canvas, paint)
+            animator.animate {
+                lsm.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            lsm.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
